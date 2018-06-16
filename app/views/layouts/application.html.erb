@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ScotchTerest</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+ 
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload' %>
+
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
+
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => 'reload' %>
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+         
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar">Users</span>
+            <span class="icon-bar">Pins</span>
+            <span class="icon-bar">Faq</span>
+          </button>
+         <%= link_to image_tag("logo_S_400X400.png", alt: "logo"), root_path, class: 'navbar-brand' %>
+  
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><%= link_to 'Home', root_path %></li>
+            <li><%= link_to 'Users' , pages_Users_path %></li>
+            <li><%= link_to 'Pins', pins_path %></li>
+            <li><%= link_to 'Faq', pages_Faq_path %></li>
+          </ul>
+         <form class="navbar-form navbar-right" role="search">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+        </form>
+          <ul class="nav navbar-nav navbar-right">
+            
+              <li class="dropdown">
+              <%if user_signed_in? %>
+                  <a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown">
+                  <i class="fas fa-user-secret"></i></a>
+
+                  <ul class="dropdown-menu">
+                    <li><a href="/user_signed_in"><i class="fas fa-user-fa-user-secret"></i> Perfil</a></li>
+                    <li class="divider"></li>
+                    <li>
+                        <%= link_to destroy_user_session_path , method: :delete do %>
+                        <i class="fas fa-sign-out-alt"></i> Cerrar Sessión
+                        
+                      <% end %>
+                    </li>
+                  </ul>
+              </li>
+        </li>
+            <%else%>
+              <li>
+                <%= link_to new_user_session_path do %>
+                  <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                <% end %>
+              </li>
+              <li>
+                <%= link_to new_user_registration_path do %>
+                  <i class="fas fa-user-plus"></i> Registrarse
+                <% end %>
+              </li>
+            <%end%>
+          </ul>
+        </div>
+        </div>
+      </div>
+
+    </nav>
+    <br><br><br>
+    <div class="container">
+      <div class="jumbotron">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>
